@@ -149,7 +149,7 @@ y_01 <-
   rowid_to_column(var = "rowid") %>% 
   rename(idpers = idpers_after)
   
-  ## Creating FINAL data set, ready for test hypotheses
+  ## Creating FINAL data set, ready to test hypotheses
 mol_ed01_special_data <- 
   left_join(x_01, y_01, by = "idpers")
 
