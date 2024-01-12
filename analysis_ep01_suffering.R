@@ -1,5 +1,6 @@
 # Title: Fact or legend ep01 - suffering
 # Author: Bruno Alves de Carvalho
+# Status: ## Incomplete ##
 
 # Setting the directory to the data warehouse
 setwd("/Users/brunoalvesdecarvalho/Desktop/DataWarehouse_20231015_ve01")
