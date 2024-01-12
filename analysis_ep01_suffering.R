@@ -1,4 +1,4 @@
-# Title: Myth or Legend? 1st edition special
+# Title: Fact or legend ep01 - suffering
 # Author: Bruno Alves de Carvalho
 
 # Setting the directory to the data warehouse
