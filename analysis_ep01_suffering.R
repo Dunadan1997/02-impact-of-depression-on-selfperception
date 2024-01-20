@@ -1,6 +1,8 @@
 # Title: Fact or legend ep01 - suffering
 # Author: Bruno Alves de Carvalho
-# Status: ## Incomplete ##
+# Status: ## In Progress ##
+
+# Set Up ------------------------------------------------------------------
 
 # Setting the directory to the data warehouse
 setwd("/Users/brunoalvesdecarvalho/Desktop/DataWarehouse_20231015_ve01")
@@ -16,8 +18,25 @@ source("R_Scripts/FunctionRepository_20231016_ve01.R")
 merged_data_shp <-
   readRDS("SHP/Data_Aggregated_1999_2022/cached_mol_ed01.rds")
 
-# Creating event variables for suffering
 
+# Transforming Data -------------------------------------------------------
+
+merged_data_shp$sex <- 
+  factor(merged_data_shp$`sex$$`, 
+         levels = c(1,2), 
+         labels = c("man", "woman"))
+
+merged_data_shp$canton <- 
+  factor(merged_data_shp$`canton$$`, 
+         levels = c(1:26), 
+         labels = c("Argovia", "Appenzell Inner-Rhodes", "Appenzell\nOuter-Rhodes", 
+                    "Berne", "Basle-Town", "Basle-Country", "Fribourg", "Geneva", 
+                    "Glarus", "Grisons", "Jura", "Lucerne", "Neuchatel", "Nidwalden", 
+                    "Obwalden", "St. Gall", "Schaffhausen", "Solothurn", "Schwyz", 
+                    "Thurgovia", "Ticino", "Uri", "Vaud", "Valais", "Zug", "Zurich"))
+
+
+# Creating event variables for suffering
   ## Defining "serious" depressive event as >8 and removing individuals with
   ## more than 1 depressive event. So we're only considering people with a single
   ## recording of depression
@@ -82,10 +101,10 @@ depression_04 <-
          ) %>% 
   nest_by(idpers_02)
 
-    ## Slicing data into before and after depression, for each individual seperately
-before_depression <- 
+    ## Slicing data into before and after depression, for each individual separately
+before_depression_01 <- 
   map(depression_04$data, function(.) subset(., year < depression_year))
-after_depression <-
+after_depression_01 <-
   map(depression_04$data, function(.) subset(., year >= depression_year))
 
   ## Selecting variables needed for hypotheses testing
@@ -95,109 +114,162 @@ var_names <-
   select(starts_with(c("rsl", "ctrl", "othrs", "gdthgs", "god")), rel_confession, idpers) %>% 
   colnames()
 
-x_01 <- 
+before_depression_02 <- 
   NULL
 
 for (i in seq_along(var_names)) {
   
   ## Calculating the average score for every variable of each individual before 
   ## suffering from depression
-  x_01 <- 
-    before_depression %>% 
+  before_depression_02 <- 
+    before_depression_01 %>% 
     map(var_names[i]) %>% 
     map(mean, na.rm = T) %>% 
     unlist() %>% 
     na_if(NaN) %>% 
     tibble() %>% 
-    bind_cols(x_01)
+    bind_cols(before_depression_02)
   
   ## Renaming columns
-  colnames(x_01) <- 
+  colnames(before_depression_02) <- 
     paste0(var_names[i:1], "_before")
   
 }
 
-x_01 <- 
-  x_01 %>% 
+before_depression_02 <- 
+  before_depression_02 %>% 
   rowid_to_column(var = "rowid") %>% 
   rename(idpers = idpers_before)
 
-y_01 <- 
+after_depression_02 <- 
   NULL
 
 for (i in seq_along(var_names)) {
   
   ## Calculating the average score for every variable of each individual after 
   ## suffering from depression
-  y_01 <- 
-    after_depression %>% 
+  after_depression_02 <- 
+    after_depression_01 %>% 
     map(var_names[i]) %>% 
     map(mean, na.rm = T) %>% 
     unlist() %>% 
     na_if(NaN) %>% 
     tibble() %>% 
-    bind_cols(y_01)
+    bind_cols(after_depression_02)
   
   ## Renaming columns
-  colnames(y_01) <- 
+  colnames(after_depression_02) <- 
     paste0(var_names[i:1], "_after")
   
 }
 
-y_01 <- 
-  y_01 %>% 
+after_depression_02 <- 
+  after_depression_02 %>% 
   rowid_to_column(var = "rowid") %>% 
   rename(idpers = idpers_after)
   
   ## Creating FINAL data set, ready to test hypotheses
+
+key_demographics <-
+  c("sex", "generation", "edyear$$", "canton", "iptotni")
+
 mol_ed01_special_data <- 
-  left_join(x_01, y_01, by = "idpers")
+  merged_data_shp %>%
+  mutate_if(
+    names(.) %in% key_demographics,
+    list(~ zoo::na.locf(.))
+  ) %>% 
+  group_by(idpers) %>% 
+  mutate(last_year = max(year)) %>% 
+  filter(year == last_year) %>% 
+  select(idpers, 
+         all_of(key_demographics), 
+         last_year) %>% 
+  inner_join(
+    left_join(before_depression_02, after_depression_02, 
+              by = "idpers"), 
+    by = "idpers") 
 
 mol_ed01_special_christian_data <-
   left_join(
-    subset(x_01, rel_confession_before == 1), 
-    subset(y_01, rel_confession_after == 1),
+    subset(before_depression_02, rel_confession_before == 1), 
+    subset(after_depression_02, rel_confession_after == 1),
     by = "idpers")
 
-# Exploring data
-x1 <- 
-  depression_04 %>% 
-  unnest(cols = "data")
 
-x1 %>%  
-  select(idpers, `sex$$`) %>% 
-  distinct() %>% group_by(`sex$$`) %>%
-  summarise(n = n()) %>% 
-  mutate(prct = n/sum(n))
-x1 %>% 
-  select(idpers, `edyear$$`) %>% 
-  group_by(idpers) %>% 
-  mutate(mean = mean(`edyear$$`, na.rm = T)) %>% 
-  select(-`edyear$$`) %>%
-  distinct() %>% 
-  ggplot() + 
-  geom_histogram(aes(x = mean), binwidth = 1)
-x1 %>% 
-  select(idpers, generation) %>% 
-  distinct() %>% 
-  group_by(generation) %>%
-  summarise(n = n()) %>% 
-  mutate(prct = n/sum(n))
-x1$`canton$$` <-
-  factor(x1$`canton$$`, 
-         levels = c(1:26), 
-         labels = c("Argovia", "Appenzell Inner-Rhodes", "Appenzell\nOuter-Rhodes", "Berne", "Basle-Town", "Basle-Country", "Fribourg", "Geneva", "Glarus", "Grisons", "Jura", "Lucerne", "Neuchatel", "Nidwalden", "Obwalden", "St. Gall", "Schaffhausen", "Solothurn", "Schwyz", "Thurgovia", "Ticino", "Uri", "Vaud", "Valais", "Zug", "Zurich"))
-x1 %>% 
-  select(idpers, `canton$$`) %>% 
-  distinct() %>% 
-  group_by(idpers) %>%
-  slice(1) %>% 
-  group_by(`canton$$`) %>% 
-  summarise(n = n()) %>% 
-  mutate(prct = n / sum(n)) %>% 
-  ggplot() +
-  geom_bar(aes(fct_reorder(as.factor(`canton$$`), prct), prct), stat = "identity") + 
+
+# Exploratory Data Analysis -----------------------------------------------
+
+#### Comparing sample and sub-sample distribution of key demographics ####
+
+## Sex and Generation
+
+map_if(
+  list(
+  sample = prop.table(table(merged_data_shp$sex)),
+  sub_sample = prop.table(table(mol_ed01_special_data$sex)),
+  observation = "Women are over-represented in the sub-sample",
+  sample = prop.table(table(merged_data_shp$generation)),
+  sub_sample = prop.table(table(mol_ed01_special_data$generation)),
+  observation = "Older generations are over-represented in the sub-sample"), 
+  is.numeric,
+  round,
+  2)
+
+## Education, geography, and income
+ggplot() + 
+  geom_histogram(
+    data = 
+      merged_data_shp %>% 
+      group_by(idpers) %>% 
+      mutate(last_year = max(year)) %>% 
+      ungroup() %>% 
+      filter(year == last_year & `edyear$$` >= 0), 
+    aes(x = `edyear$$`, y = ..density..), 
+    binwidth = 1, 
+    fill = red, 
+    alpha = 0.5) + 
+  geom_histogram(
+    data = mol_ed01_special_data, 
+    aes(x = `edyear$$`, y = ..density..), 
+    binwidth = 1, 
+    fill = blue, 
+    alpha = 0.5) +
+  geom_text(
+    aes(
+      x = 5, 
+      y = 0.4, 
+      label = "The highly educated seem\nover-represented in the sub-sample")
+    )
+
+ggplot() + 
+  geom_bar(
+    data = 
+      merged_data_shp %>% 
+      group_by(idpers) %>% 
+      mutate(last_year = max(year)) %>% 
+      ungroup() %>% 
+      filter(year == last_year) %>% 
+      group_by(canton) %>% 
+      summarise(n = n()) %>% 
+      mutate(prct = n / sum(n)), 
+    aes(fct_reorder(canton, prct), prct), 
+    stat = "identity", 
+    fill = red, 
+    alpha = 0.5) + 
+  geom_bar(
+    data = 
+      mol_ed01_special_data %>% 
+      group_by(canton) %>% 
+      summarise(n = n()) %>% 
+      mutate(prct = n / sum(n)), 
+    aes(fct_reorder(canton, prct), prct),
+    stat = "identity", 
+    fill = blue, 
+    alpha = 0.5) + 
+  geom_text(aes(x = 10, y = 0.125, label = "Non-german speaking cantons seem\nslightly over-represented")) +
   theme(axis.text.x = element_text(angle = 75, vjust = 0.5))
+
 x1 %>% 
   select(idpers, iptotni) %>%
   group_by(idpers) %>%
@@ -208,17 +280,14 @@ x1 %>%
   geom_histogram(aes(mean), binwidth = 10000) +
   xlim(0,200000)
 
-  ## slightly older sample (Boomers and Post War gen represent >50%), 
-  ## women tend to be over represented (women represent 2/3), 
-  ## slightly lower educated (most people are high school educated or lower)
-  ## slightly lower income
-  ## seems pretty well distributed across cantons of Switzerland
+## Summary table to compare distribution of scores before and after depression
 
 
-# Testing hypotheses
-  ## Hypothesis test no.1
-  ## Question_n: 18
-  ## Question: Does suffering transform our sense of self-control?
+# Hypotheses Testing ------------------------------------------------------
+
+## Hypothesis test no.1
+## Question_n: 18
+## Question: Does suffering transform our sense of self-control?
 
 h1_data <-
   tibble(
