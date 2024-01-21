@@ -200,7 +200,17 @@ mol_ed01_special_christian_data <-
 
 # Exploratory Data Analysis -----------------------------------------------
 
-#### Comparing sample and sub-sample distribution of key demographics ####
+## Comparing sample and sub-sample distribution of key demographics
+sample_locf <- 
+  merged_data_shp %>% 
+  group_by(idpers) %>% 
+  mutate(last_year = max(year)) %>% 
+  ungroup() %>% 
+  filter(year == last_year) %>% 
+  select(
+    idpers, 
+    key_demographics,
+    last_year)
 
 ## Sex and Generation
 
@@ -270,20 +280,112 @@ ggplot() +
   geom_text(aes(x = 10, y = 0.125, label = "Non-german speaking cantons seem\nslightly over-represented")) +
   theme(axis.text.x = element_text(angle = 75, vjust = 0.5))
 
-x1 %>% 
-  select(idpers, iptotni) %>%
-  group_by(idpers) %>%
-  mutate(mean = mean(iptotni, na.rm = T)) %>% 
-  select(-iptotni) %>%
-  distinct() %>% 
-  ggplot() + 
-  geom_histogram(aes(mean), binwidth = 10000) +
-  xlim(0,200000)
+ggplot() + 
+  geom_histogram(
+    data = merged_data_shp %>% 
+      group_by(idpers) %>% 
+      mutate(last_year = max(year)) %>% 
+      ungroup() %>% 
+      filter(year == last_year), 
+    aes(x = iptotni, y = ..density..), 
+    binwidth = 10000, 
+    fill = red, 
+    alpha = 0.5) + 
+  geom_histogram(
+    data = mol_ed01_special_data, 
+    aes(x = iptotni, y = ..density..), 
+    binwidth = 10000, 
+    fill = blue, 
+    alpha = 0.5) + 
+  geom_vline(
+    aes(xintercept = median(mol_ed01_special_data$iptotni)), 
+    color = blue) + 
+  geom_vline(
+    aes(xintercept = 
+          merged_data_shp %>% 
+          group_by(idpers) %>% 
+          mutate(last_year = max(year)) %>% 
+          ungroup() %>% 
+          filter(year == last_year) %>% 
+          select(iptotni) %>% 
+          map(median, na.rm = T) %>% 
+          unlist()), 
+    color = red) +
+  xlim(0, 200000) +
+  geom_text(aes(x = 125000, y = 0.00004, label = "Higher income individuals appear\nslightly over-represented in the sub-sample")) 
+
+
+## Summary tables comparing the distribution between the sample and the subsample
+controls <- 
+  tableby.control(
+  test = F,
+  numeric.stats = c("Nmiss", "median" , "meansd", "range"),
+  cat.stats = c("Nmiss", "countpct"),
+  ordered.stats = c("Nmiss", "countpct")
+  )
+
+sample_summarytable <- 
+  tableby(
+    ~ sex + generation + `edyear$$` + canton + iptotni, 
+    data = sample_locf, 
+    control = controls
+  )
+
+subsample_summarytable <- 
+  tableby(
+    ~ sex + generation + `edyear$$` + canton + iptotni, 
+    data = mol_ed01_special_data, 
+    control = controls
+    )
+
+summary(sample_summarytable)
+summary(subsample_summarytable)
 
 ## Summary table to compare distribution of scores before and after depression
+var_names_after <- 
+  mol_ed01_special_data %>% 
+  ungroup() %>% 
+  select(ends_with("after")) %>% 
+  colnames() %>% 
+  sort()
+var_names_before <-
+  mol_ed01_special_data %>% 
+  ungroup() %>%
+  select(ends_with("before")) %>% 
+  colnames() %>% 
+  sort()
 
+subsample_gathered <- 
+  NULL
 
-# Hypotheses Testing ------------------------------------------------------
+for(i in seq_along(var_names)[1:24]) {
+  subsample_gathering <-
+    gather(
+    var_names_before[i], var_names_after[i], 
+    value = !!sym(var_names[i]), 
+    key = "event", 
+    data = mol_ed01_special_data %>% 
+      select(idpers, var_names_before[i], var_names_after[i])) %>% 
+    mutate(event = ifelse(str_ends(event, "after"), 1, 0))
+  
+  # Handle the first iteration
+  if (i == 1) {
+    subsample_gathered <- subsample_gathering
+  } else {
+    # Left join with subsample_gathered
+    subsample_gathered <- left_join(subsample_gathering, subsample_gathered, by = c("idpers", "event"))
+  }
+ 
+}
+
+depression_summarytable <-
+  tableby(event ~ ., 
+        data = ungroup(subsample_gathered) %>% select(-idpers), 
+        control = controls)
+
+summary(depression_summarytable)
+
+# Hypothesis Testing ------------------------------------------------------
 
 ## Hypothesis test no.1
 ## Question_n: 18
