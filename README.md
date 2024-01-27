@@ -2,4 +2,4 @@
 
 This project is ongoing. 
 
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](file:///Users/brunoalvesdecarvalho/Desktop/DataWarehouse_20231015_ve01/interactive_plot.html)
+![newplot](https://github.com/Dunadan1997/fact-or-legend-ep01-suffering/assets/105599594/291bc17c-54fa-472e-9939-db9d3e0e530d)
