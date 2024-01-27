@@ -16,12 +16,12 @@ Suffering is transformative, so we are told. The goal of my analysis is to empir
 7. Suffering transforms our relationship with others, urging us to be more compasionnate and empathic.
    a.
 
-The average score 
+The average score... 
 
 I am using data from the Swiss Household Panel (SHP) to test each of these separate claims. The SHP is a longitudinal survey that follows individuals and households over time to record and analyse social changes in the Swiss population. The SHP collects data since 1999 and continues to do so every year. It is a robust data set from which to draw statistical inferences.
 
 ## Describing the sample
-[My Graph](Ep01_HypoTestResults_20240127_ve01.jpeg)
+
 
 
 
