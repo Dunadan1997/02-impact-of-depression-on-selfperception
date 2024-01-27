@@ -21,9 +21,22 @@ merged_data_shp <-
 
 # Defining color palette
 red <- "#ee3124"
+
 blue <- "#0095da"
+b_lighter <- "#7EC3E5"
+b_light <- "#51A3CC"
+b_dark <- "#2C85B2"
+b_darker <- "#0F6B99"
+
 green <- "#009248"
+g_lighter <- "#6B990F"
+g_light <- "#85B22C"
+g_dark <- "#A3CC51"
+g_darker <- "#C3E57E"
+
 yellow <- "#fdb913"
+
+black <- "#333333"
 
 
 # Transforming Data -------------------------------------------------------
@@ -547,30 +560,41 @@ for (i in seq_along(vars_to_visualise)) {
   
 }
 
+ave_diff$item <- 
+  factor(
+    ave_diff$item, 
+    levels = c("ctrl_fndsuccss", "ctrl_wnthnds", "ctrl_hppndpds", "ctrl_dngevrthy", 
+               "ctrl_lttlinflf", "ctrl_othrsdtrm", "ctrl_pshdlfe"), 
+    labels = c("I will find a way to succeed", "What I want is in my hands", "What will happen depends on me", "I am doing everything set in my mind", 
+               "I have little influence on life events", "Others determine what I can do*", "I feel I am being pushed in my life"))
+
 ave_diff %>% 
   ggplot() + 
   geom_line(
     aes(as_factor(depression), value, group = item, color = item), 
-    linewidth = 1, show.legend = FALSE) + 
+    linewidth = 1.5, show.legend = TRUE) + 
   labs(
     y = NULL, 
     x = NULL, 
-    title = "Do you really want to hurt me?", 
-    subtitle = "Average score across different items before and after depression",
-    caption = "Note: All but one item are statistically significant at a 5% level. Items are recorded on a scale from 0\n(strongly disagree) to 10 (strongly agree). From top to bottom, the items read: 'I am doing everything\nset in my mind,''I will find a way to succeed,' 'What I want is in my hands,' 'What will happen depends\non me,' 'Others determine what I can do,' 'I feel being pushed in my life,' 'I have little influence on life\nevents.'") +
+    title = "New Wine for New Wineskins?", 
+    subtitle = "Average score across different measures of perceived self-control before and after depression",
+    caption = "Note: All statistical tests are conducted at a 5% significance level. The '*' indicates that the item did not show statistical significance. Items are recorded on a\nscale from 0 (strongly disagree) to 10 (strongly agree).") +
   scale_x_discrete(
     labels = c("Before\nDepression", "After\nDepression"), 
     expand = c(-0.65, 0.71)) + 
   scale_y_continuous(limits = c(2,8), breaks = seq(2,8, 1), minor_breaks = NULL) + 
-  scale_color_manual(values = c(rep(blue, 3), rep(yellow, 3), blue)) + 
+  scale_color_manual(values = c(b_lighter, b_light, b_dark, b_darker, g_light, g_dark, g_darker)) +
   geom_text(
     aes(x = 1.5, y = 2.75, label = "People feel they\nare more vulnerable"), 
-    size = 3.75, color = yellow) + 
+    size = 3.75, color = "black") + 
   geom_text(
     aes(x = 1.5, y = 6.25, label = "People feel they\nhave less control"), 
-    size = 3.75, color = blue) +
+    size = 3.75, color = "black") +
   theme_minimal() +
   theme(
+    legend.title = element_blank(),
+    legend.text = element_text(size = 10),
+    legend.key.height = unit(1.5, "cm"),
     panel.grid.major = element_line(linewidth = 0.1),
     text = element_text(family = "Helvetica"),
     plot.title.position = "plot",
@@ -578,5 +602,5 @@ ave_diff %>%
     plot.caption = element_text(hjust = 0, vjust = -1, size = 7.5)
     ) 
 
-ggsave("mol_h1_20240103_ed01.png", path = "Visuals/mol", width = 5, height = 7.5)
+ggsave("HypoTestResults_20240127_ve01.png", path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/fact-or-legend-ep01-suffering/", width = 7.5, height = 7.5)
 
