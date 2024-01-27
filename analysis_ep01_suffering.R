@@ -602,5 +602,6 @@ ave_diff %>%
     plot.caption = element_text(hjust = 0, vjust = -1, size = 7.5)
     ) 
 
-ggsave("HypoTestResults_20240127_ve01.png", path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/fact-or-legend-ep01-suffering/", width = 7.5, height = 7.5)
+ggsave("Ep01_HypoTestResults_20240127_ve01.jpeg", path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/fact-or-legend-ep01-suffering/", width = 7.5, height = 7.5)
+ggsave("Ep01_HypoTestResults_20240127_ve01.png", path = "Visuals/fact_or_legend/", width = 7.5, height = 7.5)
 
