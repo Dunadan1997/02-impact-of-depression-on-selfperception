@@ -10,6 +10,7 @@ setwd("/Users/brunoalvesdecarvalho/Desktop/DataWarehouse_20231015_ve01")
 # Loading packages
 library(tidyverse)
 library(haven)
+library(arsenal)
 
 # Loading functions from the warehouse
 source("R_Scripts/FunctionRepository_20231016_ve01.R")
@@ -17,6 +18,12 @@ source("R_Scripts/FunctionRepository_20231016_ve01.R")
 # Loading data stored in the warehouse
 merged_data_shp <-
   readRDS("SHP/Data_Aggregated_1999_2022/cached_mol_ed01.rds")
+
+# Defining color palette
+red <- "#ee3124"
+blue <- "#0095da"
+green <- "#009248"
+yellow <- "#fdb913"
 
 
 # Transforming Data -------------------------------------------------------
@@ -188,7 +195,8 @@ mol_ed01_special_data <-
   inner_join(
     left_join(before_depression_02, after_depression_02, 
               by = "idpers"), 
-    by = "idpers") 
+    by = "idpers") %>% 
+  ungroup()
 
 mol_ed01_special_christian_data <-
   left_join(
@@ -209,7 +217,7 @@ sample_locf <-
   filter(year == last_year) %>% 
   select(
     idpers, 
-    key_demographics,
+    all_of(key_demographics),
     last_year)
 
 ## Sex and Generation
@@ -538,12 +546,6 @@ for (i in seq_along(vars_to_visualise)) {
     bind_rows(ave_diff)
   
 }
-
-
-red <- "#ee3124"
-blue <- "#0095da"
-green <- "#009248"
-yellow <- "#fdb913"
 
 ave_diff %>% 
   ggplot() + 
