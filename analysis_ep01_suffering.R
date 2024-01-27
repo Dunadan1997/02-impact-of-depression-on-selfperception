@@ -542,7 +542,7 @@ h6_test <-
 print_htest(h6_test, 23)
 
 
-# Visualizing results for LinkedIn post
+# Visualizing results of hypotheses tests
 vars_to_visualise <- 
   var_names[str_starts(var_names,"ctrl")]
 
@@ -578,7 +578,7 @@ ave_diff %>%
     x = NULL, 
     title = "New Wine for New Wineskins?", 
     subtitle = "Average score across different measures of perceived self-control before and after depression",
-    caption = "Note: All statistical tests are conducted at a 5% significance level. The '*' indicates that the item did not show statistical significance. Items are recorded on a\nscale from 0 (strongly disagree) to 10 (strongly agree).") +
+    caption = "Note: All statistical tests are conducted at a 5% significance level. The '*' indicates that the item did not show statistical significance. Items are recorded on a\nscale from 0 (strongly disagree) to 10 (strongly agree).\nSource: Swiss Household Data\nAuthor: Bruno Alves de Carvalho") +
   scale_x_discrete(
     labels = c("Before\nDepression", "After\nDepression"), 
     expand = c(-0.65, 0.71)) + 
