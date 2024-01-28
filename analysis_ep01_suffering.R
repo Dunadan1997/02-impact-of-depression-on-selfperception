@@ -1,42 +1,26 @@
-# Title: Fact or legend ep01 - suffering
+# Project name: Fact or legend ep01 - suffering
 # Author: Bruno Alves de Carvalho
-# Status: ## In Progress ##
+# Status: In Progress
 
 # Set Up ------------------------------------------------------------------
 
-# Setting the directory to the data warehouse
+# Set up the directory to the data warehouse
 setwd("/Users/brunoalvesdecarvalho/Desktop/DataWarehouse_20231015_ve01")
 
-# Loading packages
+# Load packages
 library(tidyverse)
 library(haven)
 library(arsenal)
 
-# Loading functions from the warehouse
+# Load functions from the warehouse
 source("R_Scripts/FunctionRepository_20231016_ve01.R")
 
-# Loading data stored in the warehouse
+# Load color palette
+source("R_Scripts/ColorPalette_20240128_ve01.R")
+
+# Load data stored in the warehouse
 merged_data_shp <-
   readRDS("SHP/Data_Aggregated_1999_2022/cached_mol_ed01.rds")
-
-# Defining color palette
-red <- "#ee3124"
-
-blue <- "#0095da"
-b_lighter <- "#7EC3E5"
-b_light <- "#51A3CC"
-b_dark <- "#2C85B2"
-b_darker <- "#0F6B99"
-
-green <- "#009248"
-g_lighter <- "#6B990F"
-g_light <- "#85B22C"
-g_dark <- "#A3CC51"
-g_darker <- "#C3E57E"
-
-yellow <- "#fdb913"
-
-black <- "#333333"
 
 
 # Transforming Data -------------------------------------------------------
@@ -578,7 +562,7 @@ ave_diff %>%
     x = NULL, 
     title = "New Wine for New Wineskins?", 
     subtitle = "Average score across different measures of perceived self-control before and after depression",
-    caption = "Note: All statistical tests are conducted at a 5% significance level. The '*' indicates that the item did not show statistical significance. Items are recorded on a\nscale from 0 (strongly disagree) to 10 (strongly agree).\nSource: Swiss Household Data\nAuthor: Bruno Alves de Carvalho") +
+    caption = "Note: All statistical tests are conducted at a 5% significance level. The '*' indicates that the item did not show statistical significance. Items are recorded on a\nscale from 0 (strongly disagree) to 10 (strongly agree).\nSource: Swiss Household Data, author's calculations\nAuthor: Bruno Alves de Carvalho") +
   scale_x_discrete(
     labels = c("Before\nDepression", "After\nDepression"), 
     expand = c(-0.65, 0.71)) + 
@@ -586,10 +570,10 @@ ave_diff %>%
   scale_color_manual(values = c(b_lighter, b_light, b_dark, b_darker, g_light, g_dark, g_darker)) +
   geom_text(
     aes(x = 1.5, y = 2.75, label = "People feel they\nare more vulnerable"), 
-    size = 3.75, color = "black") + 
+    size = 3.75, color = black) + 
   geom_text(
     aes(x = 1.5, y = 6.25, label = "People feel they\nhave less control"), 
-    size = 3.75, color = "black") +
+    size = 3.75, color = black) +
   theme_minimal() +
   theme(
     legend.title = element_blank(),
