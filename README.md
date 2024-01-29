@@ -22,6 +22,10 @@ I am using data from the Swiss Household Panel (SHP) to test each of these separ
 
 ## Describing the sample
 
+## Hypothesis testing
+
+## Results
+![Plot](https://github.com/Dunadan1997/fact-or-legend-ep01-suffering/blob/main/Ep01_HypoTestResults_20240127_ve01.jpeg)
 
 
 
