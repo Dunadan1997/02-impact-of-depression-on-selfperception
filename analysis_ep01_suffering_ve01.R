@@ -1,4 +1,4 @@
-# Project name: Fact or legend ep01 - suffering
+# Project name: Fact or legend ep01 - suffering, ve01
 # Author: Bruno Alves de Carvalho
 # Status: In Progress
 
@@ -526,7 +526,7 @@ h6_test <-
 print_htest(h6_test, 23)
 
 
-# Visualizing results of hypotheses tests
+# Visualize Insights ------------------------------------------------------
 vars_to_visualise <- 
   var_names[str_starts(var_names,"ctrl")]
 

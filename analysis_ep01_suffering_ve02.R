@@ -1,5 +1,30 @@
+# Project name: Fact or legend ep01 - suffering, ve02
+# Author: Bruno Alves de Carvalho
+# Status: In Progress
 
-object <- c(
+# Set Up ------------------------------------------------------------------
+
+# Set up the directory to the data warehouse
+setwd("/Users/brunoalvesdecarvalho/Desktop/DataWarehouse_20231015_ve01")
+
+# Load packages
+library(tidyverse)
+library(haven)
+
+# Load functions from the warehouse
+source("R_Scripts/FunctionRepository_20231016_ve01.R")
+
+# Load color palette
+source("R_Scripts/ColorPalette_20240128_ve01.R")
+
+# Load data stored in the warehouse
+merged_data_shp <-
+  readRDS("SHP/Data_Aggregated_1999_2022/cached_mol_ed01.rds")
+
+
+# Transform Data ----------------------------------------------------------
+
+proper_var_names <- c(
   "rsl_ovrprbls", "rsl_chspssblt", "ctrl_dngevrthy", 
   "ctrl_fndsuccss", "ctrl_wnthnds", "ctrl_hppndpds", "ctrl_othrsdtrm", 
   "ctrl_pshdlfe", "ctrl_lttlinflf", "othrs_trst", "othrs_dontn", 
@@ -8,12 +33,15 @@ object <- c(
   "god_blfgd", "god_meditn", "god_flngone", "god_gdintrvns"
 )
 
-object02 <- c(
+raw_var_names <- c(
   "p$$c72", "p$$c73", "p$$c104", "p$$c105", "p$$c106", 
   "p$$c107", "p$$c108", "p$$c109", "p$$c71", "p$$p45", "p$$n53", 
   "p$$n56", "p$$n35", "p$$n38", "p$$w228", "p$$ql04", "p$$i01", 
   "p$$r05", "p$$r15", "p$$r16", "p$$r17", "p$$r18", "p$$r19"
 )
+
+colnames(merged_data_shp)[colnames(merged_data_shp) %in% object02] <- 
+  object
 
 merged_data_shp <- 
   merged_data_shp %>% 
@@ -26,8 +54,6 @@ merged_data_shp <-
                labels = c("25-30", "30-35", "35-40", "40-45", "45-50", "50-55",
                           "55-60", "60-65", "65-70", "70-75")))
 
-colnames(merged_data_shp)[colnames(merged_data_shp) %in% object02] <- 
-  object
 
 transform_scales <- function(field) {
   ifelse(field < 0, NA, field)
@@ -71,11 +97,31 @@ tab_depression <-
   arrange(idpers, year)
 
 
-tab_depression %>% group_by(year, num_of_depressive_events) %>% summarise(n = n(), mean_n = sum(!is.na(ctrl_hppndpds)), mean_ctrl_hppndpds = mean(ctrl_hppndpds, na.rm = T)) %>% ggplot(aes(x = year, y = mean_ctrl_hppndpds, color = num_of_depressive_events)) + geom_point() + geom_smooth(method = "loess", se = F) + scale_y_continuous(limits = c(6,9))
-tab_depression %>% group_by(year, num_of_depressive_events) %>% summarise(n = n(), mean_n = sum(!is.na(ctrl_lttlinflf)), mean_ctrl_lttlinflf = mean(ctrl_lttlinflf, na.rm = T)) %>% filter(mean_n > 0) %>% ggplot(aes(x = year, y = mean_ctrl_lttlinflf, color = num_of_depressive_events)) + geom_point() + geom_smooth(method = "lm", se = F)
-tab_depression %>% group_by(year, num_of_depressive_events) %>% summarise(n = n(), mean_n = sum(!is.na(god_pryrs)), mean_god_pryrs = mean(god_pryrs, na.rm = T)) %>% filter(mean_n > 0) %>% ggplot(aes(x = year, y = mean_god_pryrs, color = num_of_depressive_events)) + geom_point() + geom_smooth(method = "lm", se = F)
+# Exploratory Data Analysis -----------------------------------------------
+tab_depression %>% 
+  group_by(year, num_of_depressive_events) %>% 
+  summarise(n = n(), mean_n = sum(!is.na(ctrl_hppndpds)), mean_ctrl_hppndpds = mean(ctrl_hppndpds, na.rm = T)) %>% 
+  ggplot(aes(x = year, y = mean_ctrl_hppndpds, color = num_of_depressive_events)) + 
+  geom_point() + 
+  geom_smooth(method = "loess", se = F) + 
+  scale_y_continuous(limits = c(6,9))
+tab_depression %>% 
+  group_by(year, num_of_depressive_events) %>% 
+  summarise(n = n(), mean_n = sum(!is.na(ctrl_lttlinflf)), mean_ctrl_lttlinflf = mean(ctrl_lttlinflf, na.rm = T)) %>% 
+  filter(mean_n > 0) %>%
+  ggplot(aes(x = year, y = mean_ctrl_lttlinflf, color = num_of_depressive_events)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = F)
+tab_depression %>% 
+  group_by(year, num_of_depressive_events) %>% 
+  summarise(n = n(), mean_n = sum(!is.na(god_pryrs)), mean_god_pryrs = mean(god_pryrs, na.rm = T)) %>% 
+  filter(mean_n > 0) %>% 
+  ggplot(aes(x = year, y = mean_god_pryrs, color = num_of_depressive_events)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = F)
 
 
+# Visualize Insights ------------------------------------------------------
 tab_depression %>% 
   group_by(years_since_depressive_event, depression) %>% 
   summarise(n = n(), sample_size = sum(!is.na(ctrl_hppndpds)), mean_ctrl_hppndpds = mean(ctrl_hppndpds, na.rm = T)) %>%
