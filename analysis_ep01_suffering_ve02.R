@@ -415,7 +415,7 @@ f01 <- function(
     theme(plot.title = element_text(face = "bold"), 
           plot.title.position = "plot",
           plot.caption.position = "plot",
-          plot.caption = element_text(hjust = 0),
+          plot.caption = element_text(hjust = 0, margin = margin(t = 15, r = 0, b = 0, l = 0)),
           panel.grid.major.x = element_blank(),
           panel.grid.major.y = element_line(linewidth = 0.25),
           legend.position = "top",
