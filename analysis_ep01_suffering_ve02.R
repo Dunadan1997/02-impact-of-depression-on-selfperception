@@ -251,7 +251,7 @@ text_position_ctrl_lttlinflf_02 <-
 scale_y_limits_ctrl_lttlinflf <-
   c(3,6)
 avg_position_ctrl_lttlinflf <-
-  data.frame(x = -8.5, y = 0.05)
+  data.frame(x = -8.5, y = -0.05)
 statement_ctrl_lttlinflf <-
   "I have little influence on life events"
 segment_position_ctrl_lttlinflf_01 <- 
@@ -316,8 +316,9 @@ f01 <- function(
     
   step_3 <-
     step_2 +
-    geom_vline(xintercept = 0, linewidth = 0.75, color = grey) + 
-    geom_point(aes(size = sample_size, alpha = sample_size), color = color) + 
+    geom_vline(xintercept = 0, linewidth = 0.50, color = grey) + 
+    geom_point(#aes(size = sample_size), 
+               alpha = 0.5, size = 2.5, color = color) + 
     geom_line(data = smoothed_data %>%
                 group_by(years_since_depressive_event) %>% 
                 summarise(mean_smooth = mean({{ field }}, na.rm = T)), 
@@ -350,12 +351,12 @@ f01 <- function(
                  linewidth = 0.2, linetype = 2, color = grey) +
     geom_text(data = avg_position,
               aes(x = x, y = mean_before + y, 
-                  label = paste0("mean: ", round(mean_before,2))),
+                  label = paste0("mean: ", round(mean_before,1))),
               size = panel_text_size, 
               color = grey) +
     geom_text(data = avg_position,
               aes(x = abs(x), y = mean_after - abs(y), 
-                  label = paste0("mean: ", round(mean_after,2))),
+                  label = paste0("mean: ", round(mean_after,1))),
               size = panel_text_size, 
               color = grey)
   step_5 <-
@@ -418,9 +419,9 @@ f01 <- function(
           plot.caption = element_text(hjust = 0, margin = margin(t = 15, r = 0, b = 0, l = 0)),
           panel.grid.major.x = element_blank(),
           panel.grid.major.y = element_line(linewidth = 0.25),
-          legend.position = "top",
-          text = element_text(size = plot_text_size)) +
-    guides(alpha = guide_legend(title = "Sample size:"), size = guide_legend(title = "Sample size:"))
+          #legend.position = "top",
+          text = element_text(size = plot_text_size)) #+
+    #guides(alpha = guide_legend(title = "Sample size:"), size = guide_legend(title = "Sample size:"))
   
   return(step_7)
 }
@@ -438,7 +439,7 @@ plot_ctrl_lttlinflf_years <-
     text_position_02 = text_position_ctrl_lttlinflf_02, 
     statement = statement_ctrl_lttlinflf, 
     plot_title = "How Depression Shapes Our Sense of Control", 
-    plot_subtitle = "Average agreement with the statements: \"I have little influence on life events\" (left) and \"What will happen depends on me\" (right)\non a scale from 0 (disagree) to 10 (agree), before and after the first recorded depression.",
+    plot_subtitle = "Average level of self-perceived influence and control over life events, before and after first recorded depression.",
     plot_caption = "Source: Swiss Household Panel (SHP), author's calculation\nAuthor: Bruno Alves de Carvalho (balvesdecarvalho1906@gmail.com)"
     ) 
   
