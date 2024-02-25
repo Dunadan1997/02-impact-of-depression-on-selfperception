@@ -23,6 +23,8 @@ What do you think? Has suffering played some purposeful role in your life? Feel 
 I used data from the Swiss Household Panel, which is part of the _FORS - Swiss Centre of Expertise in the Social Sciences_ since 2008. You can find the full citation here:
 * SHP Group (2023), Living in Switzerland Waves 1-23 + Covid 19 data (6.0.0) [Dataset]. FORS data service. https://doi.org/10.48573/642z-p311
 
+![Plot](Ep01_PlotCtrlYears_20240218_ve01.jpeg)
+
 # Part 2: New Wine for New Wineskins?
 
 The goal of my analysis is to empirically test the claim that suffering is transformative. The transformative impact of suffering can be broken down into four categories:
