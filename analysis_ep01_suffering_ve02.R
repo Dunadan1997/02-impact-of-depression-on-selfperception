@@ -438,7 +438,7 @@ plot_ctrl_lttlinflf_years <-
     avg_position = avg_position_ctrl_lttlinflf, 
     text_position_02 = text_position_ctrl_lttlinflf_02, 
     statement = statement_ctrl_lttlinflf, 
-    plot_title = "How Depression Shapes Our Sense of Control", 
+    plot_title = "Can you tell a smile from a veil?", 
     plot_subtitle = "Average level of self-perceived influence and control over life events, before and after first recorded depression.",
     plot_caption = "Source: Swiss Household Panel (SHP), author's calculation\nAuthor: Bruno Alves de Carvalho (balvesdecarvalho1906@gmail.com)"
     ) 
