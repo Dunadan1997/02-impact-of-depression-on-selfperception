@@ -41,7 +41,7 @@ Notably, the data hints at a sustained transformation post-depression. Although 
 
 These graphs, depicting opposite sides of the same coin, suggest that suffering, in the form of depression, wields a lasting influence on how we perceive and exert control over our lives.
 
-Personally, this resonates. As almost every youngster, I thought myself invicible, capable of all deeds, shying away from no challenge. That is, until one day I was brought back to reality from the high tower of my self-estime. This is one way in which suffering can be painful, by making us realize how little in control we are - a devastating realization. However, given we have social support to help us process this experience, it can be beneficial, leading to a more realistic sense of control, to an existence that is more attuned with the independent ways of the world (and our body), that is more modest and humble about the capacities of the self (and the mind), and more aware of its limitations and vulnerabilities. 
+This observation will resonate with many. A lot of us have stood atop the pedestal of invincibility, only to be brought back to reality by life's challenges. One way suffering hurts is by making us realize how little control we actually have. However, given we have the social support necessary to help us process this experience, suffering can be beneficial, leading to a more realistic sense of control, to an existence that is more attuned with the independent ways of the world (and our body), that is more modest and humble about the capacities of the self (and the mind), and more aware of its limitations and vulnerabilities. 
 
 What do you think? Has suffering played some purposeful role in your life? Feel free to share your point of view in the comments. 
 
