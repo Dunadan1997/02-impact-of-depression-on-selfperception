@@ -240,9 +240,9 @@ avg_position_ctrl_hppndpds <-
 statement_ctrl_hppndpds <-
   "What will happen depends on me"
 segment_position_ctrl_hppndpds_01 <- 
-  data.frame(x = 10, xend = 10, y = 8.6, yend = 8.8)
+  data.frame(x = -10, xend = -10, y = 8.6, yend = 8.8)
 text_position_ctrl_hppndpds_01 <- 
-  data.frame(x = 9, y = 8.65, x_2 = 8.75, y_2 = 8.35)
+  data.frame(x = -9, y = 8.65, x_2 = -8.75, y_2 = 8.35)
 
 segment_position_ctrl_lttlinflf_02 <-
   tibble(x = -5, y = 3.25, xend = -6, yend = y)
@@ -456,7 +456,7 @@ plot_ctrl_hppndpds_years <-
     text_position_02 = text_position_ctrl_hppndpds_02, 
     statement = statement_ctrl_hppndpds, 
     plot_title = "", 
-    plot_subtitle = "\n", 
+    plot_subtitle = "", 
     plot_caption = "\n"
     )
 
