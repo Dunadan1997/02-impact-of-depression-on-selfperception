@@ -41,13 +41,14 @@ Notably, the data hints at a sustained transformation post-depression. Although 
 
 These graphs, depicting opposite sides of the same coin, suggest that suffering, in the form of depression, wields a lasting influence on how we perceive and exert control over our lives.
 
-This observation will resonate with many. A lot of us have stood atop the pedestal of invincibility, only to be brought back to reality by life's challenges. One way suffering hurts is by making us realize how little control we actually have. However, given we have the social support necessary to help us process this experience, suffering can be beneficial, leading to a more realistic sense of control, to an existence that is more attuned with the independent ways of the world (and our body), that is more modest and humble about the capacities of the self (and the mind), and more aware of its limitations and vulnerabilities. 
+This observation will resonate with many. A lot of us have stood atop the pedestal of invincibility, only to be brought back to reality by life's challenges. One way suffering hurts is by making us realize how little control we actually possess. However, given we have the social support necessary to help us process this experience, suffering can be beneficial, leading to a more realistic sense of control, to an existence that is more attuned with the independent ways of the world (and our body), that is more modest and humble about the capacities of the self (and the mind), and more aware of its limitations and vulnerabilities. 
+
+As is so often the case with life, it is hard to tell a smile from a veil.
 
 What do you think? Has suffering played some purposeful role in your life? Feel free to share your point of view in the comments. 
 
-p.s. I was inspired to do the analysis upon reading Timothy Keller's book...
-
-Data source: SHP
+I used data from the Swiss Household Panel, which is part of the _FORS - Swiss Centre of Expertise in the Social Sciences_ since 2008. You can find the full citation here:
+* SHP Group (2023), Living in Switzerland Waves 1-23 + Covid 19 data (6.0.0) [Dataset]. FORS data service. https://doi.org/10.48573/642z-p311
 
 
 
