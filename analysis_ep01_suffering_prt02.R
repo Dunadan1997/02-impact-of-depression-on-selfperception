@@ -1,4 +1,4 @@
-# Project name: Fact or legend ep01 - suffering, ve01
+# Project name: Fact or legend ep01 - suffering, Part 2
 # Author: Bruno Alves de Carvalho
 # Status: In Progress
 
