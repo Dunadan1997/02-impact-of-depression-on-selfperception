@@ -29,15 +29,19 @@ I am using data from the Swiss Household Panel (SHP) to test each of these separ
 
 # How Depression Shapes Our Sense of Control
 
-Suffering is transformative. Many religions and practical philosophies consider it as a necessary part of life. Suffering, they say, serves as a learning tool, when it is not fatal. It forces us to change the way we perceive ourself and the world. Hoefully, bringing us closer to the meaning of it all. 
+Is suffering transformative? 
 
-To infuse some data driven insights into this tradition, I examined some different ways in which depression - a form of suffering - shapes our sense of control. 
+Many traditions consider it a necessary and constructive guide, when it is not fatal. Suffering, they say, forces us to change the way we perceive ourself and the world, bringing us closer to the meaning of life. 
 
-Looking at the graph on the left that when depression first hits, we feel on average the most powerless we will ever feel 10 years before and after this depression. The same is true for the graph on the right, where we feel on average the most helpful during our first depression we will ever feel 10 years before and after this depression. In both graphs, we see there does not seem to be a return to normal, even many years after our first depression. On average, we tend to feel we have less infulence on life events and feel that what happens depends less on us. This effect remains long after the first depression, suggesting suffering has a transformative effect. This may also be due to the fact that people may also experience more than one depression, which may hinder a return back to normal. 
+In my recent exploration into the data, I delved into the nuances of depression - a poignant form of suffering - and its influence on our sense of control. The results, depicted in the accompanying graphs, offer intriguing insights.
 
-The two graphs represent two sides of the same coin. The data suggests suffering has a lasting impact on our sense of control, both in the way in which we perceive our influence on the world and in the way we perceive our control over the world. 
+The left graph gauges our agreement with feeling powerless over life events. The impact of our first encounter with depression lingers, portraying a sense of powerlessness that surpasses both pre- and post-depression periods. Similarly, the right graph, measuring our belief in our control on life events, shows a marked dip during the initial bout of depression, with a lasting effect.
 
-As almost every youngster, I thought myself invicible, capable of all deeds, shying away from no challenge. That is, until one day I was brought back to reality from the high tower of my self-estime. This is one way in which suffering can be painful, by making us realize how little in control we are - a devastating realization. In the long run, however, I believe this epiphany can be beneficial, leading to a more realistic sense of control, to an existence that is more attuned with the independent ways of the world (and our boday), that is more modest and humble about the capacities of the self (and the mind), and more aware of its limitations and vulnerabilities. 
+Notably, the data hints at a sustained transformation post-depression. Although this enduring impact could be attributed to recurring depressive episodes, hindering a complete restoration to pre-depression levels, it may also be due to the transformative impact of suffering.
+
+These graphs, depicting opposite sides of the same coin, suggest that suffering, in the form of depression, wields a lasting influence on how we perceive and exert control over our lives.
+
+Personally, this resonates. As almost every youngster, I thought myself invicible, capable of all deeds, shying away from no challenge. That is, until one day I was brought back to reality from the high tower of my self-estime. This is one way in which suffering can be painful, by making us realize how little in control we are - a devastating realization. However, given we have social support to help us process this experience, it can be beneficial, leading to a more realistic sense of control, to an existence that is more attuned with the independent ways of the world (and our body), that is more modest and humble about the capacities of the self (and the mind), and more aware of its limitations and vulnerabilities. 
 
 What do you think? Has suffering played some purposeful role in your life? Feel free to share your point of view in the comments. 
 
