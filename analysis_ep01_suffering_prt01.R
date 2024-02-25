@@ -1,4 +1,4 @@
-# Project name: Fact or legend ep01 - suffering, ve02
+# Project name: Fact or legend ep01 - suffering, Part 01
 # Author: Bruno Alves de Carvalho
 # Status: In Progress
 
@@ -123,25 +123,6 @@ tab_depression %>%
 
 
 # Visualize Insights ------------------------------------------------------
-#vis01 <-
-  tab_depression %>% 
-  group_by(age_groups, num_of_depressive_events) %>% 
-  summarise(n = n(), mean_n = sum(!is.na(ctrl_hppndpds)), mean_ctrl_hppndpds = mean(ctrl_hppndpds, na.rm = T)) %>% 
-  filter(!is.na(age_groups)) %>% 
-  ggplot(aes(x = age_groups, y = mean_ctrl_hppndpds, group = num_of_depressive_events, color = num_of_depressive_events)) + 
-  geom_point() +
-  geom_smooth(method = "loess", se = T, aes(fill = num_of_depressive_events), show.legend = F) + 
-  scale_y_continuous(limits = c(6.5,8.6), minor_breaks = NULL) +
-  #scale_x_continuous(breaks = seq(2001, 2022, 3), limits = c(2001, 2022), minor_breaks = NULL) +
-  scale_fill_manual(values = c(yellow, blue, red)) +
-  scale_color_manual(values = c(yellow, blue, red)) +
-  labs(x = NULL, y = NULL) +
-  theme_minimal() +
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.major.y = element_line(linewidth = 0.25),
-        legend.position = "top") +
-  guides(color = guide_legend(title = "Depressive Events:"))
-
 model_smooth_lines <- function(data, dep_var, indep_var, span_degree = 0.75) {
   model <- loess(dep_var ~ indep_var, data = data, span = span_degree, method = "loess")
   predict(model, newdata = data)
@@ -165,69 +146,6 @@ smoothed_data <-
     ctrl_hppndpds = pred_ctrl_hppndpds,
     ctrl_lttlinflf = pred_ctrl_lttlinflf 
     )
-
-#vis02 <- 
-  tab_depression %>% 
-  group_by(years_since_depressive_event, depression) %>% 
-  summarise(n = n(), sample_size = sum(!is.na(ctrl_hppndpds)), mean_ctrl_hppndpds = mean(ctrl_hppndpds, na.rm = T)) %>%
-  filter(!is.na(depression) & !is.na(years_since_depressive_event) & sample_size > 30) %>% 
-  ggplot(aes(x = years_since_depressive_event, y = mean_ctrl_hppndpds)) + 
-  geom_vline(xintercept = 0, linewidth = 0.75, color = grey) + 
-  geom_point(aes(size = sample_size, alpha = sample_size), color = green) + 
-  geom_line(data = smoothed_data %>%
-              group_by(years_since_depressive_event) %>% 
-              summarise(mean_ctrl_hppndpds = mean(ctrl_hppndpds, na.rm = T)), 
-            aes(x = years_since_depressive_event, y = mean_ctrl_hppndpds), 
-            color = green, linewidth = 1.5,
-            arrow = arrow(type = "open", length = unit(0.5, "cm"))) + 
-  #geom_smooth(aes(group = depression), method = "lm") +
-  geom_segment(aes(y = tab_depression %>%
-                     filter(years_since_depressive_event < 0 & !is.na(ctrl_hppndpds)) %>% 
-                     select(ctrl_hppndpds) %>% 
-                     summarise(mean = mean(ctrl_hppndpds)) %>% 
-                     unlist(), 
-                   yend = tab_depression %>% 
-                     filter(years_since_depressive_event < 0 & !is.na(ctrl_hppndpds)) %>% 
-                     select(ctrl_hppndpds) %>% 
-                     summarise(mean = mean(ctrl_hppndpds)) %>% 
-                     unlist(), 
-                   x = -10, xend = 0), 
-               linewidth = 0.2, linetype = 2, color = grey) + 
-  geom_segment(aes(y = tab_depression %>% 
-                     filter(years_since_depressive_event > 0 & !is.na(ctrl_hppndpds)) %>% 
-                     select(ctrl_hppndpds) %>% 
-                     summarise(mean = mean(ctrl_hppndpds)) %>% 
-                     unlist(), 
-                   yend = tab_depression %>% 
-                     filter(years_since_depressive_event > 0 & !is.na(ctrl_hppndpds)) %>% 
-                     select(ctrl_hppndpds) %>% 
-                     summarise(mean = mean(ctrl_hppndpds)) %>% 
-                     unlist(), 
-                   x = 0, xend = 10), 
-               linewidth = 0.2, linetype = 2, color = grey) + 
-  geom_segment(aes(x = -5, y = 6.75, xend = -6, yend = 6.75), 
-               arrow = arrow(length = unit(0.25,"cm")), 
-               linewidth = 0.5,
-               color = grey) + 
-  geom_segment(aes(x = 5, y = 6.75, xend = 6, yend = 6.75), 
-               arrow = arrow(length = unit(0.25,"cm")), 
-               linewidth = 0.5,
-               color = grey) +
-  geom_text(aes(x = -3.5, y = 6.75, label = "Yrs Before\nDepression"), 
-            size = 3, 
-            color = grey) +
-  geom_text(aes(x = 3.5, y = 6.75, label = "Yrs After\nDepression"), 
-            size = 3, 
-            color = grey) +
-  scale_y_continuous(limits = c(6.5, 8.6), minor_breaks = NULL) +
-  scale_x_continuous(breaks = seq(-10, 10, 2), limits = c(-10, 10), minor_breaks = NULL) + 
-  labs(x = NULL, y = NULL) +
-  theme_minimal() +
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.major.y = element_line(linewidth = 0.25),
-        legend.position = "top") +
-  guides(alpha = guide_legend(title = "Sample size:"), size = guide_legend(title = "Sample size:"))
-
 
 segment_position_ctrl_hppndpds_02 <-
   tibble(x = -5, y = 6.25, xend = -6, yend = y)
@@ -261,8 +179,6 @@ text_position_ctrl_lttlinflf_01 <-
 
 panel_text_size <- 3
 plot_text_size <- 12.5
-
-
 
 f01 <- function(
     data, 
@@ -460,10 +376,19 @@ plot_ctrl_hppndpds_years <-
     plot_caption = "\n"
     )
 
-combined_plot_ctrl_years <- gridExtra::grid.arrange(plot_ctrl_lttlinflf_years, plot_ctrl_hppndpds_years, ncol = 2)
+combined_plot_ctrl_years <- 
+  gridExtra::grid.arrange(plot_ctrl_lttlinflf_years, plot_ctrl_hppndpds_years, ncol = 2)
 
-ggsave("Ep01_PlotCtrlYears_20240218_ve01.png", combined_plot_ctrl_years, path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/fact-or-legend-ep01-suffering", width = 10.5, height = 6.5)
-ggsave("Ep01_PlotCtrlYears_20240218_ve01.jpeg", combined_plot_ctrl_years, path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/fact-or-legend-ep01-suffering" , width = 10.5, height = 6.5)
+ggsave(
+  "Ep01_PlotCtrlYears_20240218_ve01.png", 
+  combined_plot_ctrl_years, 
+  path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/fact-or-legend-ep01-suffering", 
+  width = 10.5, height = 6.5)
+ggsave(
+  "Ep01_PlotCtrlYears_20240218_ve01.jpeg", 
+  combined_plot_ctrl_years, 
+  path = "/Users/brunoalvesdecarvalho/Desktop/R Projects/fact-or-legend-ep01-suffering" , 
+  width = 10.5, height = 6.5)
 
 
 
