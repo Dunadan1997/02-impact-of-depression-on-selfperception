@@ -6,7 +6,7 @@ Is suffering transformative?
 
 Many traditions consider suffering a necessary and constructive guide, when it is not fatal. Suffering, they say, forces us to change the way we perceive ourself and the world, bringing us closer to the meaning of life. 
 
-In my recent exploration into the data, I delved into the nuances of depression - a poignant form of suffering - and its influence on our sense of control. The results, depicted in the accompanying graphs, offer intriguing insights.
+In my recent data exploration, I delved into the nuances of depression - a poignant form of suffering - and its influence on our sense of control. The results, depicted in the accompanying graphs, offer intriguing insights.
 
 The left graph gauges our agreement with feeling powerless over life events. The impact of our first encounter with depression lingers, portraying a sense of powerlessness that surpasses both pre- and post-depression periods. Similarly, the right graph, measuring our belief in our control on life events, shows a marked dip during the initial bout of depression, with a lasting effect.
 
