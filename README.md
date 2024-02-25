@@ -31,7 +31,7 @@ I am using data from the Swiss Household Panel (SHP) to test each of these separ
 
 Is suffering transformative? 
 
-Many traditions consider it a necessary and constructive guide, when it is not fatal. Suffering, they say, forces us to change the way we perceive ourself and the world, bringing us closer to the meaning of life. 
+Many traditions consider suffering a necessary and constructive guide, when it is not fatal. Suffering, they say, forces us to change the way we perceive ourself and the world, bringing us closer to the meaning of life. 
 
 In my recent exploration into the data, I delved into the nuances of depression - a poignant form of suffering - and its influence on our sense of control. The results, depicted in the accompanying graphs, offer intriguing insights.
 
@@ -41,7 +41,7 @@ Notably, the data hints at a sustained transformation post-depression. Although 
 
 These graphs, depicting opposite sides of the same coin, suggest that suffering, in the form of depression, wields a lasting influence on how we perceive and exert control over our lives.
 
-This observation will resonate with many. A lot of us have stood atop the pedestal of invincibility, only to be brought back to reality by life's challenges. One way suffering hurts is by making us realize how little control we actually possess. However, given we have the social support necessary to help us process this experience, suffering can be beneficial, leading to a more realistic sense of control, to an existence that is more attuned with the independent ways of the world (and our body), that is more modest and humble about the capacities of the self (and the mind), and more aware of its limitations and vulnerabilities. 
+This observation will resonate with many. A lot of us have stood atop the pedestal of invincibility, only to be brought back to reality by life's challenges. One way suffering hurts is by making us realize how little control we actually possess. However, given we have the social support necessary to help us process this experience, suffering can be beneficial, leading to a more realistic sense of control, to an existence that is more attuned with the independent ways of the world and our body, that is more modest and humble about the capacities of the self and the intellect, and more aware of its limitations and vulnerabilities. 
 
 As is so often the case with life, it is hard to tell a smile from a veil.
 
